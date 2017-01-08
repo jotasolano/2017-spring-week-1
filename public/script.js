@@ -1,41 +1,25 @@
 console.log(d3);
 
 //import data
-d3.queue()
-	.defer(d3.csv,'./data/hubway_trips_reduced.csv',parseTrips)
-	.defer(d3.csv,'./data/hubway_stations.csv',parseStations)
-	.await(dataLoaded);
+//Hint: use d3.queue()
 
 function dataLoaded(err,trips,stations){
-	console.log(trips);
-
 	//Some basic data discovery
 	//number of trips and number of stations?
-	console.log('Number of trips: ' + trips.length);
-	console.log('Number of stations: ' + stations.length);
+
 
 	//Time range of the trips?
 	//Hint: use d3.max, d3.min, d3.extent
-	var timeRange = d3.extent(trips,function(d){return d.startTime});
-	console.log('Trips range from ' + timeRange[0] + ' to ' + timeRange[1]);
+
 
 	//Average duration of the trips?
-	console.log('Average trip duration in seconds: ' + d3.mean(trips,function(d){return d.duration}));
+
 
 	//Split between trips with registered users and casual users?
-	var tripsByUserType = d3.nest()
-		.key(function(d){return d.userType})
-		.entries(trips);
-	console.log(tripsByUserType);
+
 
 	//How many bikes are in the system? How many trips are taken with each one?
-	var bikes = d3.nest()
-		.key(function(d){return d.bike_nr})
-		.rollup(function(t){
-			return t.length
-		})
-		.entries(trips);
-	console.log(bikes);
+
 
 }
 
