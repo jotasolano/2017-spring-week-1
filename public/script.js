@@ -77,43 +77,8 @@ function draw(stations){
 		return Math.max(b.tripStarts,b.tripEnds) - Math.max(a.tripStarts,a.tripEnds);
 	});
 
-	var nodes = plot.selectAll('.stn')
-		.data(stations,function(d){return d.id})
-		.enter()
-		.append('g').attr('class','stn');
+	//Draw
 
-	nodes.append('circle').attr('class','start')
-		.attr('r',function(d){return scaleSize(d.tripStarts)})
-		.datum(function(d){return d.tripStarts});
-	nodes.append('circle').attr('class','end')
-		.attr('r',function(d){return scaleSize(d.tripEnds)})
-		.datum(function(d){return d.tripEnds});
-	nodes.append('text').text(function(d){return d.name})
-		.attr('text-anchor','middle')
-		.attr('y',function(d){return scaleSize(Math.max(d.tripStarts,d.tripEnds)) + 20});
-
-	//The next part is  to figure out where to position these nodes
-	//and for each node, make sure the smaller of the two circles is in front
-	var x = 0, y = 80, yPadding = 120, xPadding = 40;
-
-	nodes.each(function(d){
-		var r = scaleSize(Math.max(d.tripStarts,d.tripEnds));
-		x += r;
-
-		d3.select(this)
-			.attr('transform','translate('+x+','+y+')')
-			//find the smaller of the two elements
-			.selectAll('circle')
-			.sort(function(a,b){
-				return b-a;
-			})
-
-		x += (r + xPadding);
-		if(x + 60 > w){
-			x=0;
-			y+=yPadding;
-		}
-	});
 
 }
 
