@@ -13,9 +13,15 @@ d3.queue()
 // 	console.log(arr);
 // });
 
+
+
+
+
 function dataLoaded(err,stations,trips){
 	//Some basic data discovery
 	//number of trips and number of stations?
+
+	d3.selectAll("p").insert("div");
 	console.log('Number of trips', trips.length);
 	console.log('Number of stations', stations.length);
 
@@ -55,13 +61,11 @@ function dataLoaded(err,stations,trips){
 		.rollup(function(sublist) { return {
 			originalList: sublist,
 			totalDuration: d3.sum(sublist, function(d) { return d.duration; })
-		};
-	})
+			};
+		})
 		.entries(trips);
 
 	console.log('UniqueBikes', uniqueBikes);
-
-
 }
 
 function parseTrips(d){
